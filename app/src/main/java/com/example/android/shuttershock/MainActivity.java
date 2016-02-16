@@ -151,10 +151,6 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                imageView.setImageResource(position);
-                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                imageView.setAdjustViewBounds(true);
-
                 // Sending image id to FullScreenActivity
                 Intent i = new Intent(getApplicationContext(), Fullscreen.class);
                 // passing array index
