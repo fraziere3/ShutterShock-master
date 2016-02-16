@@ -60,7 +60,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -101,6 +102,7 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private ImageView imageView;
 
     ////////////Location Instance Variables///////////////
     AppLocationService appLocationService;
@@ -143,6 +145,20 @@ public class MainActivity extends Activity {
         adapter = new ContactImageAdapter(this, R.layout.screen_list,
                 imageArry);
         dataList = (ListView) findViewById(R.id.list);
+        dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // Sending image id to FullScreenActivity
+                Intent i = new Intent(getApplicationContext(), Fullscreen.class);
+                // passing array index
+                i.putExtra("id", position);
+                startActivity(i);
+
+            }
+        });
         dataList.setAdapter(adapter);
 
 
