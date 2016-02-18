@@ -7,6 +7,9 @@ public class Contact {
 //	String _name;
 	String imagePath;
 	String date;
+	String zipCodeW;
+	String countryW;
+	String cityW;
 	// Empty constructor
 	public Contact() {
 
@@ -21,10 +24,13 @@ public class Contact {
 
 	}*/
 
-	public Contact(int keyId, String imagePath, String date) {
+	public Contact(int keyId, String imagePath, String date, String cityW, String zipCodeW, String countryW) {
 		this._id = keyId;
 		this.imagePath = imagePath;
 		this.date = date;
+		this.cityW = cityW;
+		this.zipCodeW = zipCodeW;
+		this.countryW = countryW;
 
 	}
 /*
@@ -35,9 +41,12 @@ public class Contact {
 	}
 
 */	// constructor
-	public Contact(String imagePath, String date) {
+	public Contact(String imagePath, String date, String cityW, String zipCodeW, String countryW) {
 		this.imagePath = imagePath;
 		this.date = date;
+		this.countryW = countryW;
+		this.zipCodeW = zipCodeW;
+		this.cityW = cityW;
 	}
 
 
@@ -79,4 +88,25 @@ public class Contact {
 	public void setImage(String imagePath) {
 		this.imagePath = imagePath;
 	}
+
+	public String getCountry() {
+		return this.countryW;
+	}
+	public void setCountry(String countryW){
+		this.countryW = countryW;
+	}
+
+	public String getZipCode() {
+		return this.zipCodeW;
+	}
+	public void setZipCode(String zipCodeW){
+		this.zipCodeW = zipCodeW;
+	}
+	public String getCity(){
+		return this.cityW;
+	}
+	public void setCity(String cityW){
+		this.cityW = cityW;
+	}
+
 }

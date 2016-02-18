@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.renderscript.Sampler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	//private static final String KEY_NAME = "name";
 	private static final String DATE = "date";
 	private static final String KEY_IMAGE = "image";
+	private static final String CITY = "city";
+	private static final String ZIPCODE = "zipcode";
+	private static final String COUNTRY = "country";
 
 	public DataBaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,7 +40,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY,"
-				+ KEY_IMAGE + " TEXT," + DATE + " TEXT" + ")";
+				+ KEY_IMAGE + " TEXT," + DATE + " TEXT," + CITY + " TEXT," +
+				ZIPCODE + " TEXT," + COUNTRY + " TEXT" +");";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 	}
 
@@ -69,6 +74,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		//values.put(KEY_NAME, contact._name); // Contact Name
 		values.put(KEY_IMAGE, contact.imagePath); // Contact Phone
 		values.put(DATE, contact.date);
+		values.put(CITY, contact.cityW);
+		values.put(ZIPCODE, contact.zipCodeW);
+		values.put(COUNTRY, contact.getCountry());
 		// Inserting Row
 		db.insert(TABLE_CONTACTS, null, values);
 		db.close(); // Closing database connection
@@ -84,7 +92,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+		Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+				cursor.getString(4), cursor.getString(5));
 
 		// return contact
 		return contact;
@@ -108,6 +117,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				contact.setImage(cursor.getString(1));
 				// Adding contact to list
 				contact.setDate(cursor.getString(2));
+				contact.setCity(cursor.getString(3));
+				contact.setZipCode(cursor.getString(4));
+				contact.setCountry(cursor.getString(5));
 				contactList.add(contact);
 			} while (cursor.moveToNext());
 		}
@@ -136,6 +148,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				contact.setImage(cursor.getString(1));
 				// Adding contact to list
 				contact.setDate(cursor.getString(2));
+				contact.setCity(cursor.getString(3));
+				contact.setZipCode(cursor.getString(4));
+				contact.setCountry(cursor.getString(5));
 				contactList.add(contact);
 			} while (cursor.moveToNext());
 		}
@@ -156,6 +171,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		//values.put(KEY_NAME, contact.getName());
 		values.put(KEY_IMAGE, contact.getImage());
 		values.put(DATE, contact.getDate());
+		values.put(CITY, contact.cityW);
+		values.put(ZIPCODE, contact.zipCodeW);
+		values.put(COUNTRY, contact.countryW);
 
 		// updating row
 		return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",

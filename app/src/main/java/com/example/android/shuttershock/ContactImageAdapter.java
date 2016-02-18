@@ -42,6 +42,7 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 	            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
 				holder.textView = (TextView)row.findViewById(R.id.textView);
+				holder.textView2 = (TextView)row.findViewById(R.id.textView2);
 	            row.setTag(holder);
 	        }
 	        else
@@ -52,6 +53,8 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	        Contact picture = data.get(position);
 	        holder.txtTitle.setText(picture.imagePath);
 			holder.textView.setText(picture.date);
+			holder.textView2.setText(picture.cityW + "\n" + picture.zipCodeW + "\n" + picture.countryW);
+
 	        //convert byte to bitmap take from contact class
 	        
 	       /* byte[] outImage=picture._image;
@@ -70,5 +73,6 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	        ImageView imgIcon;
 	        TextView txtTitle;
 			TextView textView;
+			TextView textView2;
 	    }
 	}

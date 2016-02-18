@@ -60,8 +60,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -70,6 +69,7 @@ import android.widget.Toast;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Scanner;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -102,7 +102,6 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ImageView imageView;
 
     ////////////Location Instance Variables///////////////
     AppLocationService appLocationService;
@@ -123,7 +122,7 @@ public class MainActivity extends Activity {
 
     ListView dataList;
 
-
+    Contact contact = new Contact();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +131,7 @@ public class MainActivity extends Activity {
         //DataBaseHandler db = new DataBaseHandler(this);
         //db.deleteAll();
         //db.close();
-        readContacts();
+
         // textView = (TextView)findViewById(R.id.textView);
 
 
@@ -145,27 +144,15 @@ public class MainActivity extends Activity {
         adapter = new ContactImageAdapter(this, R.layout.screen_list,
                 imageArry);
         dataList = (ListView) findViewById(R.id.list);
-        dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                imageView.setImageResource(position);
-                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                imageView.setAdjustViewBounds(true);
-
-                // Sending image id to FullScreenActivity
-                Intent i = new Intent(getApplicationContext(), Fullscreen.class);
-                // passing array index
-                i.putExtra("id", position);
-                startActivity(i);
-
-            }
-        });
         dataList.setAdapter(adapter);
 
-
+        if(adapter.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Adapter Empty",
+                    Toast.LENGTH_LONG).show();
+        }
+        if (!adapter.isEmpty()) {
+            readContacts();
+        }
         mTitle = mDrawerTitle = getTitle();
         mfilterTitles = getResources().getStringArray(R.array.filters_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -196,11 +183,13 @@ public class MainActivity extends Activity {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-
+            @Override
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 //drawerView.bringToFront();
+                mDrawerList.bringToFront();
+                mDrawerLayout.requestLayout();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -246,7 +235,10 @@ public class MainActivity extends Activity {
             //Adds the picture into the contact class
             // db.addContact(new Contact(picPathData);
             String y = makeDate();
-            Contact contact = new Contact(picPathData, y);
+            getCurrentLocation();
+            contact.setImage(picPathData);
+            contact.setDate(y);
+            //contact = new Contact(picPathData, y);
             db.addContact(contact);
 
             db.close();
@@ -355,7 +347,10 @@ public class MainActivity extends Activity {
                 //Adds the picture into the contact class
                 // db.addContact(new Contact(picPathData);
                 String y = makeDate();
-                Contact contact = new Contact(picPathData, y);
+                getCurrentLocation();
+                contact.setImage(picPathData);
+                contact.setDate(y);
+                //contact = new Contact(picPathData, y);
                 db.addContact(contact);
 
                 db.close();
@@ -560,11 +555,13 @@ public class MainActivity extends Activity {
 
                 Toast.makeText(getApplicationContext(), "Date Selected",
                         Toast.LENGTH_LONG).show();
-                readDates();
-                adapter = new ContactImageAdapter(this, R.layout.screen_list,
-                        imageArry);
-                dataList.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                if (!adapter.isEmpty()) {
+                    readDates();
+                    adapter = new ContactImageAdapter(this, R.layout.screen_list,
+                            imageArry);
+                    dataList.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
                 break;
         	/*
         	 //create new array that holds the values of the original array
@@ -731,6 +728,9 @@ public class MainActivity extends Activity {
     }
 
     private class GeocoderHandler extends Handler {
+        private String city;
+        private String zipCode;
+        private String country;
         @Override
         public void handleMessage(Message message) {
             String locationAddress;
@@ -742,11 +742,43 @@ public class MainActivity extends Activity {
                 default:
                     locationAddress = null;
             }
+            String[] lines = locationAddress.toString().split("\\n");
+                // process the line
+            Scanner scan = new Scanner(locationAddress);
+            scan.nextLine();
+            scan.nextLine();
+            scan.nextLine();
+            city = scan.nextLine();
+            Log.d("city", city);
+            zipCode = scan.nextLine();
+            Log.d("zipcode", zipCode);
+            country = scan.nextLine();
+            Log.d("country",country);
          Log.d("tags", locationAddress);
+            contact.setCountry(country);
+            contact.setZipCode(zipCode);
+            contact.setCity(city);
+        }
+
+        public String getCountry() {
+            return this.country;
+        }
+        public void setCountry(String country){
+            this.country = country;
+        }
+
+        public String getZipCode() {
+            return this.zipCode;
+        }
+        public void setZipCode(String zipCode){
+            this.zipCode = zipCode;
+        }
+        public String getCity(){
+            return this.city;
+        }
+        public void setCity(String city){
+            this.city = city;
         }
     }
-
-    
-
 }
 
