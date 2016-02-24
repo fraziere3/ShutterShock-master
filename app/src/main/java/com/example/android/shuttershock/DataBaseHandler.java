@@ -31,6 +31,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	private static final String ZIPCODE = "zipcode";
 	private static final String COUNTRY = "country";
 
+	// Album table name
+	private static final String TABLE_ALBUM = "album";
+
+	//Album Table Columns names
+	private static final String ALBUM_ID = "albumId";
+	private static final String ALBUM_IMAGE = "albumImage";
+	private static final String ALBUM_NAME = "albumName";
+	private static final String PICTURE_ID = "picture_id";
+
 	public DataBaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -39,10 +48,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY,"
+				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ KEY_IMAGE + " TEXT," + DATE + " TEXT," + CITY + " TEXT," +
 				ZIPCODE + " TEXT," + COUNTRY + " TEXT" +");";
+
+		String CREATE_ALBUM_TABLE = "CREATE TABLE " + TABLE_ALBUM + "("
+				+ ALBUM_ID + " INTEGER PRIMARY KEY,"
+				+ PICTURE_ID + " TEXT," + ALBUM_IMAGE + " TEXT," + ALBUM_NAME + " TEXT" +");";
+
 		db.execSQL(CREATE_CONTACTS_TABLE);
+		db.execSQL(CREATE_ALBUM_TABLE);
 	}
 
 
@@ -50,6 +65,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	{
 		SQLiteDatabase db= this.getWritableDatabase();
 		db.delete("contacts", null, null);
+		db.delete("album", null, null);
 
 	}
 	// Upgrading database
@@ -57,7 +73,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
-
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALBUM);
 		// Create tables again
 		onCreate(db);
 	}
@@ -79,6 +95,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		values.put(COUNTRY, contact.getCountry());
 		// Inserting Row
 		db.insert(TABLE_CONTACTS, null, values);
+		db.close(); // Closing database connection
+	}
+
+	public// Adding new album
+	void addAlbum(Album album) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		//values.put(KEY_NAME, contact._name); // Contact Name
+		values.put(ALBUM_ID, album.getAlbum_Id()); // Contact Phone
+		values.put(PICTURE_ID, album.getPicture_id());
+		values.put(ALBUM_NAME, album.getAlbum_name());
+		values.put(ALBUM_IMAGE, album.getPicture_path());
+		// Inserting Row
+		db.insert(TABLE_ALBUM, null, values);
 		db.close(); // Closing database connection
 	}
 
