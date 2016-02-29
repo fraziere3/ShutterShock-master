@@ -23,28 +23,31 @@ public final class R {
         public static final int upload=0x7f020006;
     }
     public static final class id {
-        public static final int action_websearch=0x7f07000a;
+        public static final int action_websearch=0x7f07000b;
         public static final int content_frame=0x7f070001;
+        public static final int createfolder=0x7f07000f;
         public static final int drawer_layout=0x7f070000;
-        public static final int image=0x7f070004;
-        public static final int imageView=0x7f070005;
-        public static final int imgIcon=0x7f070006;
+        public static final int frag=0x7f070004;
+        public static final int image=0x7f070005;
+        public static final int imageView=0x7f070006;
+        public static final int imgIcon=0x7f070007;
         public static final int left_drawer=0x7f070002;
         public static final int list=0x7f070003;
-        public static final int look=0x7f07000d;
-        public static final int take_pic=0x7f07000b;
-        public static final int textView=0x7f070007;
-        public static final int textView2=0x7f070008;
-        public static final int txtTitle=0x7f070009;
-        public static final int upload=0x7f07000c;
+        public static final int look=0x7f07000e;
+        public static final int take_pic=0x7f07000c;
+        public static final int textView=0x7f070008;
+        public static final int textView2=0x7f070009;
+        public static final int txtTitle=0x7f07000a;
+        public static final int upload=0x7f07000d;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int drawer_list_item=0x7f030001;
-        public static final int fragment_filter=0x7f030002;
-        public static final int fragment_fullscreen=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int screen_list=0x7f030005;
+        public static final int fragment_blank=0x7f030002;
+        public static final int fragment_filter=0x7f030003;
+        public static final int fragment_fullscreen=0x7f030004;
+        public static final int main=0x7f030005;
+        public static final int screen_list=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f060000;
@@ -58,5 +61,7 @@ public final class R {
         public static final int app_not_available=0x7f050005;
         public static final int drawer_close=0x7f050006;
         public static final int drawer_open=0x7f050007;
+        public static final int folder=0x7f050008;
+        public static final int hello_blank_fragment=0x7f050009;
     }
 }

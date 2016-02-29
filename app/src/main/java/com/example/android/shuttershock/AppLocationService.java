@@ -3,7 +3,7 @@ package com.example.android.shuttershock;
 /**
  * Created by eric on 2/14/2016.
  */
-
+//this class listens for locations
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;

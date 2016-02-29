@@ -1,5 +1,6 @@
 package com.example.android.shuttershock;
 
+//this class holds the data for a single picture
 public class Contact {
 
 	// private variables
@@ -10,6 +11,7 @@ public class Contact {
 	String zipCodeW;
 	String countryW;
 	String cityW;
+	private int company_id;
 	// Empty constructor
 	public Contact() {
 
@@ -24,13 +26,14 @@ public class Contact {
 
 	}*/
 
-	public Contact(int keyId, String imagePath, String date, String cityW, String zipCodeW, String countryW) {
+	public Contact(int keyId, String imagePath, String date, String cityW, String zipCodeW, String countryW, int company_id) {
 		this._id = keyId;
 		this.imagePath = imagePath;
 		this.date = date;
 		this.cityW = cityW;
 		this.zipCodeW = zipCodeW;
 		this.countryW = countryW;
+		this.company_id = company_id;
 
 	}
 /*
@@ -41,12 +44,13 @@ public class Contact {
 	}
 
 */	// constructor
-	public Contact(String imagePath, String date, String cityW, String zipCodeW, String countryW) {
+	public Contact(String imagePath, String date, String cityW, String zipCodeW, String countryW, int company_id) {
 		this.imagePath = imagePath;
 		this.date = date;
 		this.countryW = countryW;
 		this.zipCodeW = zipCodeW;
 		this.cityW = cityW;
+		this.company_id = company_id;
 	}
 
 
@@ -107,6 +111,12 @@ public class Contact {
 	}
 	public void setCity(String cityW){
 		this.cityW = cityW;
+	}
+	public int getCompany_id(){
+		return this.company_id;
+	}
+	public void setCompany_id(int company_id){
+		this.company_id = company_id;
 	}
 
 }

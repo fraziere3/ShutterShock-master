@@ -31,4 +31,8 @@
         android:icon="@drawable/icon"
         android:title="@string/action_look"
         android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/createfolder"
+        android:icon="@drawable/icon"
+        android:title="@string/folder"
+        android:showAsAction="ifRoom|withText" />
 </menu><!-- From: file:/C:/Users/eric/Downloads/ShutterShock-master%20(1)/ShutterShock-master/app/src/main/res/menu/main.xml -->

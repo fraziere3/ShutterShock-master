@@ -30,6 +30,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -112,7 +113,7 @@ public class MainActivity extends Activity {
     private String[] mfilterTitles;
     Bitmap bmp2;
     private boolean picTaken = false;
-    ArrayList<Contact> imageArry = new ArrayList<Contact>();
+    ArrayList<Contact> imageArry = new ArrayList<Contact>();                                        //Array list that holds pictures
     ContactImageAdapter adapter;
     //TextView textView;
 
@@ -133,6 +134,21 @@ public class MainActivity extends Activity {
         //db.close();
 
         // textView = (TextView)findViewById(R.id.textView);
+
+
+
+        //Creating Default album where pictures will go
+       /* DataBaseHandler db = new DataBaseHandler(this);
+        if (db.getAlbum(0) == null) {
+            Album album = new Album(1, "Default");
+            db.addAlbum(album);
+        }
+        db.close();*/
+        DataBaseHandler db = new DataBaseHandler(this);
+        Album album = new Album("Default");
+        db.addAlbum(album);
+        db.close();
+
 
 
         ///////////////////Location Things//////////////////////////////////////
@@ -197,7 +213,29 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+
+        //readContacts();
+        // textView = (TextView)findViewById(R.id.textView);
+
+        //dataList.setAdapter(adapter);
+
+
+        dataList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getApplicationContext(),
+                        "Pos:" + pos, Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
+
     }
+
+
+
 
 
     ///////////////////////////////////////////////////////
@@ -238,6 +276,7 @@ public class MainActivity extends Activity {
             getCurrentLocation();
             contact.setImage(picPathData);
             contact.setDate(y);
+            contact.setCompany_id(1);
             //contact = new Contact(picPathData, y);
             db.addContact(contact);
 
@@ -350,6 +389,7 @@ public class MainActivity extends Activity {
                 getCurrentLocation();
                 contact.setImage(picPathData);
                 contact.setDate(y);
+                contact.setCompany_id(1);
                 //contact = new Contact(picPathData, y);
                 db.addContact(contact);
 
@@ -529,7 +569,9 @@ public class MainActivity extends Activity {
                 }
                 return true;
 
+            case R.id.createfolder:
 
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

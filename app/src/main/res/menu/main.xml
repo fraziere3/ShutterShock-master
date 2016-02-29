@@ -31,4 +31,8 @@
         android:icon="@drawable/icon"
         android:title="@string/action_look"
         android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/createfolder"
+        android:icon="@drawable/icon"
+        android:title="@string/folder"
+        android:showAsAction="ifRoom|withText" />
 </menu>
