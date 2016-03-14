@@ -35,4 +35,8 @@
         android:icon="@drawable/icon"
         android:title="@string/folder"
         android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/delete"
+        android:icon="@drawable/icon"
+        android:title="@string/delete"
+        android:showAsAction="ifRoom|withText" />
 </menu>

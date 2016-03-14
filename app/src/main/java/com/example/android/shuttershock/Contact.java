@@ -1,7 +1,9 @@
 package com.example.android.shuttershock;
 
+import java.io.Serializable;
+
 //this class holds the data for a single picture
-public class Contact {
+public class Contact implements Serializable{
 
 	// private variables
 	int _id;

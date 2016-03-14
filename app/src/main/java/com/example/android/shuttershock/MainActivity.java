@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,11 +29,13 @@ import java.util.Locale;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -99,7 +102,7 @@ import java.util.Scanner;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AdapterView.OnItemLongClickListener {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -124,6 +127,7 @@ public class MainActivity extends Activity {
     ListView dataList;
 
     Contact contact = new Contact();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +138,6 @@ public class MainActivity extends Activity {
         //db.close();
 
         // textView = (TextView)findViewById(R.id.textView);
-
 
 
         //Creating Default album where pictures will go
@@ -150,7 +153,6 @@ public class MainActivity extends Activity {
         db.close();
 
 
-
         ///////////////////Location Things//////////////////////////////////////
 
         appLocationService = new AppLocationService(MainActivity.this);
@@ -162,7 +164,7 @@ public class MainActivity extends Activity {
         dataList = (ListView) findViewById(R.id.list);
         dataList.setAdapter(adapter);
 
-        if(adapter.isEmpty()){
+        if (adapter.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Adapter Empty",
                     Toast.LENGTH_LONG).show();
         }
@@ -199,6 +201,7 @@ public class MainActivity extends Activity {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
@@ -214,31 +217,64 @@ public class MainActivity extends Activity {
             selectItem(0);
         }
 
-        //readContacts();
+        readContacts();
         // textView = (TextView)findViewById(R.id.textView);
 
-        //dataList.setAdapter(adapter);
+        dataList.setAdapter(adapter);
+
+        dataList.setOnItemLongClickListener(this);
 
 
-        dataList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+    }
+
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                   int pos, long id) {
+        // TODO Auto-generated method stub
+        Toast.makeText(getApplicationContext(),
+                "Pos:" + pos, Toast.LENGTH_SHORT).show();
+
+       final Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
+
+        String names[] ={"A","B","C","D"};
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+
+
+        alertDialog.setMessage("Do you want to delete this photo?");
+
+        alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           int pos, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(getApplicationContext(),
-                        "Pos:" + pos, Toast.LENGTH_SHORT).show();
-
-                return true;
+            public void onClick(DialogInterface arg0, int arg1) {
+                DataBaseHandler db = new DataBaseHandler(alertDialog.getContext());
+                db.deleteContact(contact4);
+                db.close();
             }
         });
 
+        alertDialog.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+      
+        alertDialog.show();
+
+        /*Intent intent = new Intent(this, MenuActivity.class);
+        Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
+        intent.putExtra("picture", contact4);
+        startActivity(intent);*/
+        return true;
     }
 
 
 
 
 
-    ///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
     //When button is pressed it calls takePic to take the picture using an intent
     private void takePic() {
         Intent cameraIntent = new Intent(
@@ -570,6 +606,9 @@ public class MainActivity extends Activity {
                 return true;
 
             case R.id.createfolder:
+
+                return true;
+            case R.id.delete:
 
                 return true;
             default:

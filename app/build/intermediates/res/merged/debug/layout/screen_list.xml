@@ -22,6 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <CheckBox
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
+                android:text="New CheckBox"
+                android:id="@+id/checkBox"
+                android:layout_gravity="right"
+                android:visibility="invisible" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -35,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/textView2"
-                android:layout_weight="1"
                 android:textColor="#ffffff" />
 
             <TextView

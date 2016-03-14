@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:17:1-47:12
+ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:17:1-52:12
 	package
 		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:18:5-47
 		INJECTED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml
@@ -38,7 +38,7 @@ ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\a
 	android:name
 		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:28:19-57
 application
-ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:31:5-45:19
+ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:31:5-50:19
 MERGED from [com.android.support:support-v4:21.0.3] C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\AndroidManifest.xml:16:5-19
 	android:label
 		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:32:9-41
@@ -62,6 +62,12 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:41:17-77
 	android:name
 		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:41:27-74
+activity#com.example.android.shuttershock.MenuActivity
+ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:44:9-48:20
+	android:label
+		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:46:13-50
+	android:name
+		ADDED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml:45:13-73
 uses-sdk
 INJECTED from C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:support-v4:21.0.3] C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\AndroidManifest.xml:15:5-42

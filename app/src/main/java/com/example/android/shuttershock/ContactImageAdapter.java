@@ -10,14 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	 Context context;
+
 	    int layoutResourceId;   
 	   // BcardImage data[] = null;
 	    ArrayList<Contact> data=new ArrayList<Contact>();
@@ -29,13 +32,13 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	    }
 
 	    @Override
-	    public View getView(int position, View convertView, ViewGroup parent) {
+	    public View getView(final int position, View convertView, ViewGroup parent) {
 	        View row = convertView;
 	        ImageHolder holder = null;
 	       
 	        if(row == null)
 	        {
-	            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+	            final LayoutInflater inflater = ((Activity)context).getLayoutInflater();
 	            row = inflater.inflate(layoutResourceId, parent, false);
 	           
 	            holder = new ImageHolder();
@@ -43,7 +46,38 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
 				holder.textView = (TextView)row.findViewById(R.id.textView);
 				holder.textView2 = (TextView)row.findViewById(R.id.textView2);
+				holder.checkBox = (CheckBox)row.findViewById(R.id.checkBox);
 	            row.setTag(holder);
+
+
+				holder.txtTitle.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(inflater.getContext(), "txtClick" + position, Toast.LENGTH_SHORT).show();
+
+					}
+
+				});
+
+				holder.checkBox.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+					}
+				});
+				holder.imgIcon.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(inflater.getContext(), "ImageClick" + position, Toast.LENGTH_SHORT).show();
+
+					}
+
+				});
+
+
+
+
 	        }
 	        else
 	        {
@@ -64,15 +98,23 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 
 			Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/ShutterShockFolder/" + picture.getImage() +".png");
 			holder.imgIcon.setImageBitmap(bitmap);
+
+
+
+
 	       return row;
 	       
 	    }
 	   
-	    static class ImageHolder
+	    public class ImageHolder
 	    {
 	        ImageView imgIcon;
 	        TextView txtTitle;
 			TextView textView;
 			TextView textView2;
-	    }
+			CheckBox checkBox;
+
+
+		}
 	}
+
