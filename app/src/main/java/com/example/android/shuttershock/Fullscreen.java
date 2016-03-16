@@ -2,36 +2,32 @@ package com.example.android.shuttershock;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * Created by shortn1 on 2/15/2016.
  */
-
-
 public class Fullscreen extends Activity {
-    ImageView imageView;
+    private ImageView imageView;
+    Contact contact;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_fullscreen);
 
-
-
-        // get intent data
-        Intent i = getIntent();
-
-        // Selected image id
-        int position = i.getExtras().getInt("id");
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        /*imageView.setImageResource(MainActivity.ICONS[position]);*/
+        Intent intent = getIntent();
+        contact = (Contact) intent.getExtras().getSerializable("picture");
 
-
-        imageView.setImageResource(position);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        imageView.setAdjustViewBounds(true);
+        Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/ShutterShockFolder/" + contact.getImage() + ".png");
+        imageView.setImageBitmap(bitmap);
     }
 }

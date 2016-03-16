@@ -194,7 +194,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public List<Album> getAllAlbums() {
 		List<Album> contactList = new ArrayList<Album>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM album ORDER BY album_id";
+		String selectQuery = "SELECT * FROM album ORDER BY albumId";
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	 Context context;
-
+ImageHolder holder = null;
 	    int layoutResourceId;   
 	   // BcardImage data[] = null;
 	    ArrayList<Contact> data=new ArrayList<Contact>();
@@ -34,13 +34,13 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 	    @Override
 	    public View getView(final int position, View convertView, ViewGroup parent) {
 	        View row = convertView;
-	        ImageHolder holder = null;
+	        //ImageHolder holder = null;
 	       
 	        if(row == null)
 	        {
 	            final LayoutInflater inflater = ((Activity)context).getLayoutInflater();
 	            row = inflater.inflate(layoutResourceId, parent, false);
-	           
+
 	            holder = new ImageHolder();
 	            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 	            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
@@ -71,6 +71,7 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 					public void onClick(View v) {
 						Toast.makeText(inflater.getContext(), "ImageClick" + position, Toast.LENGTH_SHORT).show();
 
+						holder.imgIcon.setScaleType(ImageView.ScaleType.FIT_XY);
 					}
 
 				});
@@ -113,6 +114,7 @@ public class ContactImageAdapter extends ArrayAdapter<Contact>{
 			TextView textView;
 			TextView textView2;
 			CheckBox checkBox;
+
 
 
 		}

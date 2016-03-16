@@ -65,7 +65,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,6 +119,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
     Bitmap bmp2;
     private boolean picTaken = false;
     ArrayList<Contact> imageArry = new ArrayList<Contact>();                                        //Array list that holds pictures
+
     ContactImageAdapter adapter;
     //TextView textView;
 
@@ -128,28 +131,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
     Contact contact = new Contact();
 
+    boolean isImageFitToScreen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // mDrawerToggle.syncState();
-        //DataBaseHandler db = new DataBaseHandler(this);
-        //db.deleteAll();
-        //db.close();
 
-        // textView = (TextView)findViewById(R.id.textView);
-
-
-        //Creating Default album where pictures will go
-       /* DataBaseHandler db = new DataBaseHandler(this);
-        if (db.getAlbum(0) == null) {
-            Album album = new Album(1, "Default");
-            db.addAlbum(album);
-        }
-        db.close();*/
         DataBaseHandler db = new DataBaseHandler(this);
         Album album = new Album("Default");
         db.addAlbum(album);
+        Album album1 = new Album("Beach");
+        db.addAlbum(album1);
         db.close();
 
 
@@ -225,6 +218,27 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         dataList.setOnItemLongClickListener(this);
 
 
+        //Nichelle's Code
+
+           dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+               @Override
+               public void onItemClick(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                   Toast.makeText(getApplicationContext(), "Image" + id + "clicked",
+                           Toast.LENGTH_LONG).show();
+
+// Sending image id to FullScreenActivity
+                   Intent i = new Intent(getApplicationContext(), Fullscreen.class);
+
+                   final Contact contact = (Contact) parent.getAdapter().getItem(position);
+
+                   i.putExtra("picture", contact);
+                   startActivity(i);
+
+               }
+           });
 
     }
 
@@ -254,21 +268,49 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             }
         });
 
-        alertDialog.setNegativeButton("No",new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
+            public void onClick(DialogInterface dialog2, int which) {
+
+
+                final AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(MainActivity.this);
+
+
+                alertDialog2.setMessage("Would you like to move this photo?");
+
+                alertDialog2.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+                        //Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
+                        intent.putExtra("picture", contact4);
+                        startActivity(intent);
+                    }
+                });
+
+                alertDialog2.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alertDialog2.show();
+
             }
         });
-      
-        alertDialog.show();
 
-        /*Intent intent = new Intent(this, MenuActivity.class);
-        Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
+       alertDialog.show();
+
+       /* Intent intent = new Intent(this, MenuActivity.class);
+        //Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
         intent.putExtra("picture", contact4);
         startActivity(intent);*/
         return true;
     }
+
+
 
 
 
@@ -606,7 +648,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 return true;
 
             case R.id.createfolder:
-
+                createFolder();
                 return true;
             case R.id.delete:
 
@@ -755,6 +797,43 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             return rootView;
         }
     }
+
+
+    public void createFolder(){
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+
+        DataBaseHandler db = new DataBaseHandler(this);
+
+        alertDialog.setMessage("Folder Name");
+        final EditText input = new EditText(MainActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+
+        alertDialog.setPositiveButton("Finish",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                      // DataBaseHandler db = new DataBaseHandler();
+                        Album album = new Album();
+                        album.setAlbum_name(input.getText().toString());
+                        }
+
+                });
+
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        db.close();
+        alertDialog.show();
+    }
+
 
 
     public String randomString(int length) {
