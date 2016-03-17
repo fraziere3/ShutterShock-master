@@ -138,13 +138,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataBaseHandler db = new DataBaseHandler(this);
-        Album album = new Album("Default");
-        db.addAlbum(album);
-        Album album1 = new Album("Beach");
-        db.addAlbum(album1);
-        db.close();
-
 
         ///////////////////Location Things//////////////////////////////////////
 
@@ -493,7 +486,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 Uri imageUri = Uri.fromFile(image);
 
                 //Send a broadcast so that the image that was just taken is saved to the users SD card
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, imageUri));
+                //sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, imageUri));
 
 
                 boolean success = false;
@@ -614,8 +607,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         // Handle action buttons
         switch (item.getItemId()) {
             case R.id.take_pic:
-                Toast.makeText(getApplicationContext(), "button is working",
-                        Toast.LENGTH_LONG).show();
+
                 takePic();
                 //galleryAddPic();
                 return true;
@@ -633,7 +625,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 //galleryAddPic();
                 return true;
             case R.id.look:
-                // readContacts();
+
                 return true;
             case R.id.action_websearch:
                 // create intent to perform web search for this filter
@@ -802,7 +794,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
     public void createFolder(){
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
-        DataBaseHandler db = new DataBaseHandler(this);
+        final DataBaseHandler db = new DataBaseHandler(this);
 
         alertDialog.setMessage("Folder Name");
         final EditText input = new EditText(MainActivity.this);
@@ -819,6 +811,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                       // DataBaseHandler db = new DataBaseHandler();
                         Album album = new Album();
                         album.setAlbum_name(input.getText().toString());
+                        db.addAlbum(album);
                         }
 
                 });

@@ -47,6 +47,8 @@ ImageHolder holder = null;
 				holder.textView = (TextView)row.findViewById(R.id.textView);
 				holder.textView2 = (TextView)row.findViewById(R.id.textView2);
 				holder.checkBox = (CheckBox)row.findViewById(R.id.checkBox);
+				holder.textView3 = (TextView)row.findViewById(R.id.textView3);
+
 	            row.setTag(holder);
 
 
@@ -89,6 +91,7 @@ ImageHolder holder = null;
 	        holder.txtTitle.setText(picture.imagePath);
 			holder.textView.setText(picture.date);
 			holder.textView2.setText(picture.cityW + "\n" + picture.zipCodeW + "\n" + picture.countryW);
+			holder.textView3.setText("album: " + picture.getCompany_id());
 
 	        //convert byte to bitmap take from contact class
 	        
@@ -114,7 +117,7 @@ ImageHolder holder = null;
 			TextView textView;
 			TextView textView2;
 			CheckBox checkBox;
-
+			TextView textView3;
 
 
 		}

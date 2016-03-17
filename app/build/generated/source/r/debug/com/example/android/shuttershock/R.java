@@ -27,14 +27,14 @@ public final class R {
         public static final int upload=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080014;
-        public static final int action_websearch=0x7f08000e;
+        public static final int action_settings=0x7f080015;
+        public static final int action_websearch=0x7f08000f;
         public static final int albumList=0x7f080008;
         public static final int albumText=0x7f080000;
-        public static final int checkBox=0x7f08000a;
+        public static final int checkBox=0x7f08000e;
         public static final int content_frame=0x7f080002;
-        public static final int createfolder=0x7f080012;
-        public static final int delete=0x7f080013;
+        public static final int createfolder=0x7f080013;
+        public static final int delete=0x7f080014;
         public static final int drawer_layout=0x7f080001;
         public static final int frag=0x7f080005;
         public static final int image=0x7f080006;
@@ -42,12 +42,13 @@ public final class R {
         public static final int imgIcon=0x7f080009;
         public static final int left_drawer=0x7f080003;
         public static final int list=0x7f080004;
-        public static final int look=0x7f080011;
-        public static final int take_pic=0x7f08000f;
-        public static final int textView=0x7f08000b;
-        public static final int textView2=0x7f08000c;
-        public static final int txtTitle=0x7f08000d;
-        public static final int upload=0x7f080010;
+        public static final int look=0x7f080012;
+        public static final int take_pic=0x7f080010;
+        public static final int textView=0x7f08000d;
+        public static final int textView2=0x7f08000b;
+        public static final int textView3=0x7f08000a;
+        public static final int txtTitle=0x7f08000c;
+        public static final int upload=0x7f080011;
     }
     public static final class layout {
         public static final int activity_album_list=0x7f030000;

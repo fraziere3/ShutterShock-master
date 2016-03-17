@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,8 +27,8 @@ public class MenuActivity extends Activity {
     ImageView imageView;
     ListView dataList;
     ArrayList<Album> albumArry = new ArrayList<Album>();
-
     AlbumAdapter adapter;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity);
@@ -44,10 +45,29 @@ public class MenuActivity extends Activity {
         contact = (Contact) intent.getExtras().getSerializable("picture");
 
 
+        dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Toast.makeText(getApplicationContext(), "Image" + id + "clicked",
+                        Toast.LENGTH_LONG).show();
+
+            DataBaseHandler db = new DataBaseHandler(getApplicationContext());
+                final Album albumm = (Album) parent.getAdapter().getItem(position);
+                contact.setCompany_id(albumm.getAlbum_Id());
+                db.updateContact(contact);
+                finish();
+            }
+        });
+
     }
 
 
     public void readAlbums() {
+
+        int counter = 0;
         albumArry.clear();
         DataBaseHandler db = new DataBaseHandler(this);
         List<Album> albums = db.getAllAlbums();
@@ -59,8 +79,13 @@ public class MenuActivity extends Activity {
             Log.d("Result: ", log);
             //add contacts data in arrayList
             albumArry.add(al);
+            counter++;
 
         }
+
+
+        Toast.makeText(getApplicationContext(), "Num of albums" + db.getAlbumCount(),
+                Toast.LENGTH_SHORT).show();
         db.close();
     }
 

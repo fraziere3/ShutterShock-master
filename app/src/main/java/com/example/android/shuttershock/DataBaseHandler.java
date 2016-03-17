@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.renderscript.Sampler;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				ZIPCODE + " TEXT," + COUNTRY + " TEXT," + CONTACT_ALBUM_ID + " INTEGER" +");";
 
 		String CREATE_ALBUM_TABLE = "CREATE TABLE " + TABLE_ALBUM + "("
-				+ ALBUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ ALBUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
 				 + ALBUM_NAME + " TEXT" +");";
 
 		db.execSQL(CREATE_CONTACTS_TABLE);
@@ -112,12 +114,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		//values.put(KEY_NAME, contact._name); // Contact Name
-		values.put(ALBUM_ID, album.getAlbum_Id()); // Contact Phone
-		values.put(ALBUM_NAME, album.getAlbum_name());
+		//values.put(ALBUM_ID, album.album_id); // Contact Phone
+		values.put(ALBUM_NAME, album.album_name);
 
 		// Inserting Row
 		db.insert(TABLE_ALBUM, null, values);
+		Log.d("album", "ID:" + album.getAlbum_Id() +" Album " + album.getAlbum_name() + " created");
 		db.close(); // Closing database connection
+
+
+
+
 	}
 
 	// Getting single contact
@@ -181,15 +188,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				contactList.add(contact);
 			} while (cursor.moveToNext());
 		}
-
-
 		// close inserting data from database
 		db.close();
 		// return contact list
 		return contactList;
 
 	}
-
 	// Getting All Contacts
 	public List<Album> getAllAlbums() {
 		List<Album> contactList = new ArrayList<Album>();
@@ -270,19 +274,35 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public void deleteContact(Contact contact) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
-				new String[] { String.valueOf(contact.getID()) });
+				new String[]{String.valueOf(contact.getID())});
 		db.close();
 	}
 
 	// Getting contacts Count
 	public int getContactsCount() {
-		String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+		String countQuery = "SELECT * FROM " + TABLE_CONTACTS;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
+		int cnt = cursor.getCount();
 		cursor.close();
 
 		// return count
-		return cursor.getCount();
+		return cnt;
 	}
 
-}
+	//Getting Album Count
+	// Getting contacts Count
+	public int getAlbumCount() {
+		String countQuery = "SELECT  * FROM " + TABLE_ALBUM;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+		int cnt = cursor.getCount();
+		cursor.close();
+
+		// return count
+		return cnt;
+
+	}
+	}
+
+
