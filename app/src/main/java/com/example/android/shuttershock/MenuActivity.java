@@ -21,9 +21,12 @@ import java.util.List;
 /**
  * Created by eric on 2/29/2016.
  */
+
+//This activity is when the user wants to move an image to another folder
+//They can see which folder they moved it to
 public class MenuActivity extends Activity {
 
-    Contact contact;
+    Contact contact; //Class that is received fro intent
     ImageView imageView;
     ListView dataList;
     ArrayList<Album> albumArry = new ArrayList<Album>();
@@ -38,10 +41,10 @@ public class MenuActivity extends Activity {
 
 
 
-        readAlbums();
-        dataList.setAdapter(adapter);
+        readAlbums();   //Gets all ablums
+        dataList.setAdapter(adapter);  //Puts the albums into the List View called datalist
 
-        Intent intent = getIntent();
+        Intent intent = getIntent();  //Receives Contact from Main Activity when the user longclicked on a photo
         contact = (Contact) intent.getExtras().getSerializable("picture");
 
 
@@ -83,9 +86,6 @@ public class MenuActivity extends Activity {
 
         }
 
-
-        Toast.makeText(getApplicationContext(), "Num of albums" + db.getAlbumCount(),
-                Toast.LENGTH_SHORT).show();
         db.close();
     }
 

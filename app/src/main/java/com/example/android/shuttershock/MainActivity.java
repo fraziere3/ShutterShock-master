@@ -127,11 +127,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
     private static final int SELECT_PICTURE = 1; //intent code to select a picture
     String picPathData = "";
 
-    ListView dataList;
+    ListView dataList;  //where the pictures and text are populated
 
     Contact contact = new Contact();
 
-    boolean isImageFitToScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,8 +150,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         dataList.setAdapter(adapter);
 
         if (adapter.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Adapter Empty",
-                    Toast.LENGTH_LONG).show();
+           /* Toast.makeText(getApplicationContext(), "Adapter Empty",
+                    Toast.LENGTH_LONG).show(); */
         }
         if (!adapter.isEmpty()) {
             readContacts();
@@ -211,18 +210,16 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         dataList.setOnItemLongClickListener(this);
 
 
-        //Nichelle's Code
 
+            //When an item is clicked it in the listview an intent is sent to Fullscreen.class
            dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                @Override
                public void onItemClick(AdapterView<?> parent, View view,
                                        int position, long id) {
 
-                   Toast.makeText(getApplicationContext(), "Image" + id + "clicked",
-                           Toast.LENGTH_LONG).show();
 
-// Sending image id to FullScreenActivity
+                    // Sending image id to FullScreenActivity
                    Intent i = new Intent(getApplicationContext(), Fullscreen.class);
 
                    final Contact contact = (Contact) parent.getAdapter().getItem(position);
@@ -236,28 +233,31 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
     }
 
 
-
+    //When the user longclicks a dialog box is openened to let the user know to either delete or move the picture
     @Override
     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                   int pos, long id) {
+                                  final int pos, long id) {
         // TODO Auto-generated method stub
         Toast.makeText(getApplicationContext(),
                 "Pos:" + pos, Toast.LENGTH_SHORT).show();
-
+        //casts listview at current location as a contact
        final Contact contact4 = (Contact)arg0.getAdapter().getItem(pos);
 
-        String names[] ={"A","B","C","D"};
+
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
 
         alertDialog.setMessage("Do you want to delete this photo?");
 
+        //When user clicks yes, they will delete contact from database
         alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 DataBaseHandler db = new DataBaseHandler(alertDialog.getContext());
                 db.deleteContact(contact4);
                 db.close();
+                adapter.remove(contact4);
+                imageArry.remove(pos);
             }
         });
 
@@ -328,22 +328,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             DataBaseHandler db = new DataBaseHandler(this);
 
 
-            String randomStringForPic = "";
+            String randomStringForPic = ""; //Name for picture, subject to change
             int length = 12;
-            randomString(length);
+             //Creates a randomString of characters for image name
             randomStringForPic = randomString(length);
             picPathData = randomStringForPic;
 
 
-            //Compresses the bitmap into a byte array,
-            //which the database can read as a BLOB
-           /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte imageInByte[] = stream.toByteArray(); */
-
-            //Adds the picture into the contact class
-            // db.addContact(new Contact(picPathData);
-            String y = makeDate();
+            String y = makeDate(); //Gets current date
             getCurrentLocation();
             contact.setImage(picPathData);
             contact.setDate(y);
@@ -352,13 +344,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             db.addContact(contact);
 
             db.close();
-
-            /* //Saves the image to the user's SD card
-            File sdCardDirectory = Environment.getExternalStorageDirectory();
-            File image = new File(sdCardDirectory, picPathData + ".png");
-
-            Uri imageUri = Uri.fromFile(image);
-            */
 
             //Create Folder
             File folder = new File(Environment.getExternalStorageDirectory().toString() + "/ShutterShockFolder");
@@ -447,13 +432,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 randomStringForPic = randomString(length);
                 picPathData = randomStringForPic;
 
-
-                //Compresses the bitmap into a byte array,
-                //which the database can read as a BLOB
-           /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte imageInByte[] = stream.toByteArray(); */
-
                 //Adds the picture into the contact class
                 // db.addContact(new Contact(picPathData);
                 String y = makeDate();
@@ -465,14 +443,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 db.addContact(contact);
 
                 db.close();
-
-                //Saves the image to the user's SD card
-               /* File sdCardDirectory = Environment.getExternalStorageDirectory();
-                File image = new File(sdCardDirectory, picPathData + ".png");
-
-                Uri imageUri = Uri.fromFile(image);
-
-*/
                 //Create Folder
                 File folder = new File(Environment.getExternalStorageDirectory().toString() + "/ShutterShockFolder");
                 folder.mkdirs();
@@ -482,11 +452,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
                 //Create New file and name it Image2.PNG
                 File image = new File(extStorageDirectory, picPathData + ".PNG");
-
-                Uri imageUri = Uri.fromFile(image);
-
-                //Send a broadcast so that the image that was just taken is saved to the users SD card
-                //sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, imageUri));
 
 
                 boolean success = false;
@@ -519,22 +484,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                             "Photo not saved", Toast.LENGTH_LONG).show();
                 }
 
-
-/*
-                //Compresses the bitmap into a byte array,
-                //which the database can read as a BLOB
-                if (bmp2 != null) {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bmp2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    byte imageInByte[] = stream.toByteArray(); */
-
-/* I'm going to finish this after pic taken is fixed
-                    //Adds the picture into the contact class
-                    db.addContact(new Contact(i, "gallery picture" +
-                            "", imageInByte));
-                    i++;
-
-                    */
                 readContacts();
                 // textView = (TextView)findViewById(R.id.textView);
 
@@ -545,7 +494,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
     }
 
-
+    //Gets all Images and adds them to the imageArray
     public void readContacts() {
         imageArry.clear();
         DataBaseHandler db = new DataBaseHandler(this);
@@ -563,7 +512,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         db.close();
     }
 
-
+    //Reads the date of images
     public void readDates() {
         imageArry.clear();
         DataBaseHandler db = new DataBaseHandler(this);
@@ -678,19 +627,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                     adapter.notifyDataSetChanged();
                 }
                 break;
-        	/*
-        	 //create new array that holds the values of the original array
-        	newImageArray = new ArrayList<String>(Arrays.asList(mfilterTitles));
 
-        	//sort the array in order
-        	Collections.sort(newImageArray);
-
-            //create new instance of adapter and set the adapter
-            adapter = new ContactImageAdapter(this, R.layout.screen_list,
-                    newImageArray);
-            dataList.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            */
             case 1:
         	/*TODO: JB -- retrieve location data and organize imageArry
         	 * to reflect such data. create the new instance of the adapter
@@ -855,16 +792,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         return x;
     }
 
+    //Uses geocoding to get current location
     private void getCurrentLocation() {
 
 
         Location location = appLocationService
                 .getLocation(LocationManager.GPS_PROVIDER);
-
-        //you can hard-code the lat & long if you have issues with getting it
-        //remove the below if-condition and use the following couple of lines
-        //double latitude = 37.422005;
-        //double longitude = -122.084095
 
         if (location != null) {
             double latitude = location.getLatitude();
@@ -879,7 +812,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         }
 
     }
-
+    //Takes location data and casts it as city, zipCode, and country
     private class GeocoderHandler extends Handler {
         private String city;
         private String zipCode;

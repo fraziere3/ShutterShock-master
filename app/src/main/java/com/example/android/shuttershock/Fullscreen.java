@@ -13,6 +13,7 @@ import android.widget.Toast;
 /**
  * Created by shortn1 on 2/15/2016.
  */
+//This activity receives the intent of a contact and displays it across the phone
 public class Fullscreen extends Activity {
     private ImageView imageView;
     Contact contact;
@@ -25,8 +26,9 @@ public class Fullscreen extends Activity {
         imageView = (ImageView) findViewById(R.id.imageView);
 
         Intent intent = getIntent();
-        contact = (Contact) intent.getExtras().getSerializable("picture");
+        contact = (Contact) intent.getExtras().getSerializable("picture");    //Casts Intent data into a Contact Class
 
+        //Decodes the image path into a bitmap then displays it into the imageView
         Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/ShutterShockFolder/" + contact.getImage() + ".png");
         imageView.setImageBitmap(bitmap);
     }
