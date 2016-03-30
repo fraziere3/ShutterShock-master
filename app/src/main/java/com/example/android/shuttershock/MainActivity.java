@@ -52,7 +52,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.app.ActionBarDrawerToggle;
+//import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -104,16 +107,18 @@ import java.util.Scanner;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class MainActivity extends Activity implements AdapterView.OnItemLongClickListener {
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemLongClickListener {
+   //Uncomment
+   // private DrawerLayout mDrawerLayout;
+    //private ListView mDrawerList;
+   // private ActionBarDrawerToggle mDrawerToggle;
+    //Uncomment
 
     ////////////Location Instance Variables///////////////
     AppLocationService appLocationService;
     /////////////////End of Location Instance Variables////////////////
 
-    private CharSequence mDrawerTitle;
+   // private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mfilterTitles;
     Bitmap bmp2;
@@ -123,6 +128,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
     ContactImageAdapter adapter;
     //TextView textView;
 
+
+    ///Drawer Test////////////////////////////////////////////
+    private ListView mDrawerList;
+    private DrawerLayout mDrawerLayout;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private String mActivityTitle;
+    //Drawer Test/////////////////////////////////////////////////////
     int i = 12;
     private static final int SELECT_PICTURE = 1; //intent code to select a picture
     String picPathData = "";
@@ -154,9 +167,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                     Toast.LENGTH_LONG).show(); */
         }
         if (!adapter.isEmpty()) {
+            adapter.clear();
             readContacts();
         }
-        mTitle = mDrawerTitle = getTitle();
+        /**  mTitle = mDrawerTitle = getTitle();
         mfilterTitles = getResources().getStringArray(R.array.filters_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -175,13 +189,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
+        mDrawerToggle = new ActionBarDrawerToggle   (   */
+       //       this,                  /* host Activity */
+        //        mDrawerLayout,         /* DrawerLayout object */
+          //      R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+            //    R.string.drawer_open,  /* "open drawer" description for accessibility */
+              //  R.string.drawer_close  /* "close drawer" description for accessibility */
+        /* ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
@@ -197,39 +211,91 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
+*/
+       /* if (savedInstanceState == null) {
             selectItem(0);
         }
+*/
+        dataList.setAdapter(adapter);
 
         readContacts();
         // textView = (TextView)findViewById(R.id.textView);
 
-        dataList.setAdapter(adapter);
+
 
         dataList.setOnItemLongClickListener(this);
 
 
 
-            //When an item is clicked it in the listview an intent is sent to Fullscreen.class
-           dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-               @Override
-               public void onItemClick(AdapterView<?> parent, View view,
-                                       int position, long id) {
 
 
-                    // Sending image id to FullScreenActivity
-                   Intent i = new Intent(getApplicationContext(), Fullscreen.class);
+        ////Drawer Test///////////////////////
 
-                   final Contact contact = (Contact) parent.getAdapter().getItem(position);
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
 
-                   i.putExtra("picture", contact);
-                   startActivity(i);
 
-               }
-           });
+        final String[] osArray = { "Name", "Date", "Location", "Album" };
+            mAdapter = new ArrayAdapter<String>(this,R.layout.drawer_list_item, osArray);
+            mDrawerList.setAdapter(mAdapter);
 
+        setupDrawer();
+
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        ///Drawer Test//////////////
+
+
+
+        //When an item is clicked it in the listview an intent is sent to Fullscreen.class
+        dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+
+                // Sending image id to FullScreenActivity
+                Intent i = new Intent(getApplicationContext(), Fullscreen.class);
+
+                final Contact contact = (Contact) parent.getAdapter().getItem(position);
+
+                i.putExtra("picture", contact);
+                startActivity(i);
+
+            }
+        });
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+                    case 0:
+                        Toast.makeText(MainActivity.this, "Name", Toast.LENGTH_SHORT).show();
+                        readContacts();
+                        //getSupportActionBar().setTitle(osArray[position]);
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this, "Date", Toast.LENGTH_SHORT).show();
+                        readDates();
+                        //getSupportActionBar().setTitle(osArray[position]);
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "Location", Toast.LENGTH_SHORT).show();
+                        readLocation();
+                        //getSupportActionBar().setTitle(osArray[position]);
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this, "Album", Toast.LENGTH_SHORT).show();
+                        //getSupportActionBar().setTitle(osArray[position]);
+                        break;
+
+                }
+
+            }
+        });
     }
 
 
@@ -257,7 +323,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 db.deleteContact(contact4);
                 db.close();
                 adapter.remove(contact4);
-                imageArry.remove(pos);
+                //imageArry.remove(pos);
             }
         });
 
@@ -307,6 +373,35 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
 
 
+
+/////////////////////Drawer Test////////////////////
+
+
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                mDrawerList.bringToFront();
+                mDrawerLayout.requestLayout();
+                 }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+ ///////Drawer Test////////////////////////////////
 
 
 ///////////////////////////////////////////////////////
@@ -395,7 +490,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             readContacts();
             // textView = (TextView)findViewById(R.id.textView);
 
-            dataList.setAdapter(adapter);
+            //dataList.setAdapter(adapter);
 
         } else if (requestCode == SELECT_PICTURE) {
 
@@ -487,7 +582,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
                 readContacts();
                 // textView = (TextView)findViewById(R.id.textView);
 
-                dataList.setAdapter(adapter);
+                //dataList.setAdapter(adapter);
             }
         }
 
@@ -496,6 +591,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
     //Gets all Images and adds them to the imageArray
     public void readContacts() {
+        adapter.clear();
         imageArry.clear();
         DataBaseHandler db = new DataBaseHandler(this);
         List<Contact> contacts = db.getAllContacts();
@@ -509,24 +605,49 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
             imageArry.add(cn);
 
         }
+        adapter.addAll(imageArry);
+
         db.close();
     }
 
     //Reads the date of images
     public void readDates() {
+        adapter.clear();
         imageArry.clear();
         DataBaseHandler db = new DataBaseHandler(this);
         List<Contact> contacts = db.getContactsByDate();
         for (Contact cn : contacts) {
             String log = "ID:" + cn.getID()
-                    + " ,Image: " + cn.getImage();
+                    + " ,Image: " + cn.getDate();
 
             // Writing Contacts to log
             Log.d("Result: ", log);
             //add contacts data in arrayList
             imageArry.add(cn);
 
+
         }
+        adapter.addAll(imageArry);
+        db.close();
+    }
+
+    public void readLocation() {
+        adapter.clear();
+        imageArry.clear();
+        DataBaseHandler db = new DataBaseHandler(this);
+        List<Contact> contacts = db.getContactsByDate();
+        for (Contact cn : contacts) {
+            String log = "ID:" + cn.getID()
+                    + " ,Image: " + cn.getCity();
+
+            // Writing Contacts to log
+            Log.d("Result: ", log);
+            //add contacts data in arrayList
+            imageArry.add(cn);
+
+
+        }
+        adapter.addAll(imageArry);
         db.close();
     }
 
@@ -655,7 +776,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
         }
         // update the main content by replacing fragments
-        Fragment fragment = new filterFragment();
+       /* Fragment fragment = new filterFragment();
         Bundle args = new Bundle();
         args.putInt(filterFragment.ARG_filter_NUMBER, position);
         fragment.setArguments(args);
@@ -667,7 +788,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
         mDrawerList.setItemChecked(position, true);
         setTitle(mfilterTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
-
+*/
 /*
             if (position == 0) {
                 readDates();
@@ -676,14 +797,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemLongClic
 
     }
 
-
+/*
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
 
-    /**
+  */  /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */

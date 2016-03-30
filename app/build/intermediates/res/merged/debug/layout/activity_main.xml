@@ -20,16 +20,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#010001">
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-    </FrameLayout>
+
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.55"
+        android:choiceMode="singleChoice"
+        android:clickable="false"
+        android:focusable="false"
+        android:descendantFocusability="blocksDescendants"
+        >
+    </ListView>
+
+
+    <ListView
+        android:id="@+id/navList"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:background="#ffedef"
+        android:clickable="false"
+        android:focusable="false"
+        android:descendantFocusability="blocksDescendants"
+    />
+
+
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right
@@ -37,6 +60,7 @@
          The drawer is given a fixed width in dp and extends the full height of
          the container. A solid background is used for contrast
          with the content view. -->
+    <!--
     <ListView
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
@@ -48,18 +72,11 @@
         android:background="#111"
         android:clickable="true" />
     >
+-->
 
 
 
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.55"
-        android:choiceMode="singleChoice"
-        android:clickable="true">
-    </ListView>
 
 </android.support.v4.widget.DrawerLayout>
 <!-- From: file:/C:/Users/eric/Downloads/ShutterShock-master%20(1)/ShutterShock-master/app/src/main/res/layout/activity_main.xml -->

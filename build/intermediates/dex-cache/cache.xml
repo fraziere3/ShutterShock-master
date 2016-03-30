@@ -2,25 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
+        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\classes-7315c83fa0d309cb8452f9919e447a74e13e69eb.jar" />
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\classes-3932faf267dd9560877045d51913ba58da5802e5.jar" />
     </item>
     <item
-        jar="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
+        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\pre-dexed\debug\classes-6f62e13a112a41fff62756a4e10eb96958d26908.jar" />
-    </item>
-    <item
-        jar="C:\Users\eric\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-0d91b564f41800c45d8a46a2a700b6e6b40af8be.jar" />
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\classes-98a0c892d601d5c9ce73f1cb6b64452c574813c0.jar" />
     </item>
     <item
         jar="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\libs\internal_impl-21.0.3.jar"
@@ -30,11 +23,46 @@
         <dex dex="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-3c71ea61178d18c6e7c0819139311b94dd862919.jar" />
     </item>
     <item
-        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\libs\internal_impl-21.0.3.jar"
+        jar="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-9f25cbbf0950019fcc1f5499590c95051abbee2c.jar" />
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\pre-dexed\debug\classes-6f62e13a112a41fff62756a4e10eb96958d26908.jar" />
+    </item>
+    <item
+        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.github.lawloretienne\quickreturn\0.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4b69d993fbc16501d4d1d39dd58654cf4baccca0">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\classes-7d32b8b85f12afc785299971ce154c8888f27869.jar" />
+    </item>
+    <item
+        jar="C:\Users\eric\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock\ShutterShock\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-0d91b564f41800c45d8a46a2a700b6e6b40af8be.jar" />
+    </item>
+    <item
+        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1-e59c4dee2526e79c8a3b925e9cef85c98aebf537.jar" />
+    </item>
+    <item
+        jar="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\classes-e224a5e6e95082cafff8d30f87d2e36ae177c40d.jar" />
+    </item>
+    <item
+        jar="C:\Users\eric\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Users\eric\Downloads\ShutterShock-master (1)\ShutterShock-master\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1-fb161977af2d160bda114f54fe4b7f53c38059e7.jar" />
     </item>
 
 </items>

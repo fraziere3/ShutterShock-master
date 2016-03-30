@@ -119,7 +119,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 		// Inserting Row
 		db.insert(TABLE_ALBUM, null, values);
-		Log.d("album", "ID:" + album.getAlbum_Id() +" Album " + album.getAlbum_name() + " created");
+		Log.d("album", "ID:" + album.getAlbum_Id() + " Album " + album.getAlbum_name() + " created");
 		db.close(); // Closing database connection
 
 
@@ -187,7 +187,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				contact.setCompany_id(Integer.parseInt(cursor.getString(6)));
 				contactList.add(contact);
 			} while (cursor.moveToNext());
-		}
+		}//test
 		// close inserting data from database
 		db.close();
 		// return contact list
@@ -251,6 +251,39 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		return contactList;
 
 	}
+
+	public List<Contact> getContactsByLocation() {
+		List<Contact> contactList = new ArrayList<Contact>();
+		// Select All Query
+		String selectQuery = "SELECT  * FROM contacts ORDER BY city";
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				Contact contact = new Contact();
+				contact.setID(Integer.parseInt(cursor.getString(0)));
+				//contact.setName(cursor.getString(1));
+				contact.setImage(cursor.getString(1));
+				// Adding contact to list
+				contact.setDate(cursor.getString(2));
+				contact.setCity(cursor.getString(3));
+				contact.setZipCode(cursor.getString(4));
+				contact.setCountry(cursor.getString(5));
+				contact.setCompany_id(Integer.parseInt(cursor.getString(6)));
+				contactList.add(contact);
+			} while (cursor.moveToNext());
+		}
+
+
+		// close inserting data from database
+		db.close();
+		// return contact list
+		return contactList;
+
+	}
+
 
 	// Updating single contact
 	public int updateContact(Contact contact) {

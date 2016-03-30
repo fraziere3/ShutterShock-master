@@ -91,8 +91,10 @@ ImageHolder holder = null;
 	        holder.txtTitle.setText(picture.imagePath);
 			holder.textView.setText(picture.date);
 			holder.textView2.setText(picture.cityW + "\n" + picture.zipCodeW + "\n" + picture.countryW);
-			holder.textView3.setText("album: " + picture.getCompany_id());
-
+			DataBaseHandler db = new DataBaseHandler((Activity)context);
+			 Album abs = db.getAlbum(picture.getCompany_id());
+			holder.textView3.setText("album: " + abs.getAlbum_name());
+			db.close();
 	        //convert byte to bitmap take from contact class
 	        
 	       /* byte[] outImage=picture._image;
